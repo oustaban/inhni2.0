@@ -1,0 +1,48 @@
+    <section class="users-index-list">
+        <!--<form class="search">
+            <input type="search" results="5" placeholder="Search...">
+        </form>-->
+        <div id="firstcolumn">
+            <div id="divsearch"><input type="text" name="search" id="search" placeholder="Rechercher un participant..."></div>
+            <input type="hidden" name="listeParticipants" value="<% _.each(users, function(user) { %><%= user.id %>,<% }); %>">
+            <div id="listeparticipants">
+                <ul id="listeparticipants1" class="nav nav-v">
+                    <%= MM.tpl.render(MM.plugins.eleves.templates.elevesRow.html, {"courseId": courseId, "users": users}) %>
+                </ul>
+            </div>
+        </div>
+        <div id="secondcolumn">
+            <div id="divselection"><p class="selectiontitle">Participant(s) Sélectionné(s)</p></div>
+            <input type="hidden" name="listeParticipants2" value="">
+            <div id="listeparticipants">
+                <ul id="listeparticipants2" class="nav nav-v2"></ul>
+            </div>
+        </div>
+    </section>
+    <% if (showMore) { %>
+    <div class="centered">
+        <button id="participants-showmore"><%= MM.lang.s("showmore") %></button>
+    </div>
+    <% } %>
+    <div id="buttons">
+        <div class="centered2">
+            <button id="showSessionL" course="<%= courseId %>" users="" path="" module="" class="btn grd-vert text-blanc">Démarrer la session</button>
+        </div>
+        <div class="centered2">
+            <select name="offlineC" id="offlineC">
+                <option value="">Sélectionner un module</option>
+            </select>
+        </div>
+        <div class="centered2">
+            <button id="showCourseL" course="<%= courseId %>" users="" path="" module="" class="btn grd-vert text-blanc">Démarrer le module</button>
+        </div>
+        <div class="centered2">
+            <button id="stopCourseL" course="<%= courseId %>" users="" module="" class="btn grd-rouge text-blanc">Arrêter le module</button></a>
+        </div>
+        <div class="centered2">
+            <button id="stopSessionL" course="<%= courseId %>" starttime="" users="" path="" module="" class="btn grd-orange text-blanc">Fermer la session</button>
+        </div>
+        <div class="centered2">
+            <button id="synchroR" course="<%= courseId %>" users="<% _.each(users, function(user) { %><%= user.id %>,<% }); %>" names="<% _.each(users, function(user) { %><%= user.fullname %>,<% }); %>" class="btn grd-orange text-blanc" >Synchroniser les Résultats</button>
+        </div>
+    </div>

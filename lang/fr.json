@@ -37,6 +37,7 @@
     "confirmdeletetask": "Voulez-vous vraiment supprimer cette tâche ?",
     "confirmuploadfile": "Vous allez déposer {$a}. Voulez-vous vraiment continuer ?",
     "confirmuploadfiletosite": "Voulez-vous vraiment déposer ce fichier sur le site {$a} ?",
+    "connection": "connexion",
     "contact": "Contact",
     "contactadd": "Contact ajouté aux contacts de votre appareil",
     "contacts": "Contacts",

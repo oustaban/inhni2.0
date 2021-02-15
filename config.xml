@@ -4,9 +4,9 @@
         xmlns:gap="http://phonegap.com/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id        = "com.moonlikestudio.inhnov"
-        versionCode = "400"
-        version   = "4.0">
-    <name>INHNOV 4.0</name>
+        versionCode = "410"
+        version   = "4.1">
+    <name>INHNOV 4.1</name>
 
     <description></description>
 

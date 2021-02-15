@@ -1,0 +1,69 @@
+    <section class="report-index-list" style="height:<%= sizesection %>px">
+        <!--<form class="search">
+            <input type="search" results="5" placeholder="Search...">
+        </form>-->
+        <div id="firstcolumnreport">
+            <div id="firstblock">
+                <table cellpadding="0" cellspacing="0" border="0" style="height:100%">
+                    <tr class="firstline">
+                        <td>
+                            <div id="firstcol">
+                            <ul class="legend">
+                                <li class="metat1">Pas fait</li>
+                                <li class="metat2">A faire</li>
+                                <li class="metat3">Entamé</li>
+                                <li class="metat4">Fait</li>
+                            </ul>
+                            </div>
+                        </td>
+                        <td><div id="secondcol">Validité<br>Jeton</div></td>
+                        <td><div id="thirdcol">Modules<br>Réalisés</div></td>
+                        <% var index =0;_.each(modules, function(module) { %>
+                            <td style="width:<%= sizetdmodule %>px"><div id="cellmodule" style="width:<%= sizetdmodule %>px"><div id="module"><%= module.name %></div></div></td>
+                        <% index++;}); %>
+                    </tr>
+                    <tr class="secondline">
+                        <td><div id="firstcol"><div id="divsearch"><input type="text" name="search" id="search" placeholder="Rechercher un participant..."></div></div></td>
+                        <td><div id="secondcol">&nbsp;</div></td>
+                        <td><div id="thirdcol">&nbsp;</div></td>
+                        <% var index =0;_.each(modules, function(module) { %>
+                            <td><div id="empty">&nbsp;</div></td>
+                        <% index++;}); %>
+                    </tr>
+                </table>
+            </div>
+            <div id="secondblock" style="height:<%= sizesecond %>px">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <% var index =0;_.each(users, function(user) { %>
+                    <% var endtime = new Date(parseInt(licensesUser[user.id]['end']) * 1000) %>
+                    <% var today = new Date() %>
+                    <% var now = parseInt(today.getTime()/1000) %>
+                    <tr class="userline" eleve="eleveP<%= user.id %>">
+                        <td><div id="firstcol"><%= user.fullname %></div></td>
+                        <td <% if ((parseInt(licensesUser[user.id]['end']) - now < (60*60*24*30)) && (parseInt(licensesUser[user.id]['end']) - now >= 0)) { %> style="color:#FF0000" <% } %><% if (parseInt(licensesUser[user.id]['end']) - now >= (60*60*24*30)) { %> style="color:#00000" <% } %><% if (parseInt(licensesUser[user.id]['end']) - now <= 0) { %> style="color:#FFFFFF;background-color:#ccc" <% } %>><div id="secondcol"><%= endtime.getDate()+"/"+(endtime.getMonth()+1)+"/"+endtime.getFullYear() %></div></td>
+                        <td><div id="thirdcol"><%= modulesUserValidated[user.id]['count'] %>/<%= modulesUserPif[user.id]['count'] %></div></td>
+                        <% var indexmodule =0;_.each(modules, function(module) { %>
+                            <td style="width:<%= sizetdmodule %>px">
+                                <% if (modulesUserValidated[user.id][module.contentid] == 1 && modulesUserPif[user.id][module.contentid] == 1) { %>
+                                    <div id="usermodule3" style="width:<%= sizetdmodule %>px"></div>
+                                <% } %>
+                                <% if (modulesUserValidated[user.id][module.contentid] == 2 && modulesUserPif[user.id][module.contentid] == 1) { %>
+                                    <div id="usermodule4" style="width:<%= sizetdmodule %>px"></div>
+                                <% } %>
+                                <% if (!modulesUserPif[user.id][module.contentid]) { %>
+                                    <div id="usermodule2" style="width:<%= sizetdmodule %>px"></div>
+                                <% } %>
+                                <% if (!modulesUserValidated[user.id][module.contentid] && modulesUserPif[user.id][module.contentid] == 1) { %>
+                                    <div id="usermodule" style="width:<%= sizetdmodule %>px"></div>
+                                <% } %>
+                                
+                            </td>
+                        <% indexmodule++;}); %>
+                    </tr>
+                    <% index++;}); %>
+                </table>
+            </div>
+            <input type="hidden" name="listeParticipants" value="<% _.each(users, function(user) { %><%= user.id %>,<% }); %>">
+        </div>
+        
+    </section>

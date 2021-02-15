@@ -330,7 +330,7 @@ function signaturePopin( elem ) {
                                                                 
                                                     
                                                 };
-												options.buttons["Valider"]['style'] = "modal-button-2";
+												options.buttons["Valider"]['style'] = "modal-button-10";
                                                 
                                                 MM.widgets.dialog(html, options);
                                                 
@@ -350,6 +350,9 @@ function signaturePopin( elem ) {
                                                 var userid = $(elem).attr("userid");
 												var type = $(elem).attr("id");
 												var course = $(elem).attr("course");
+												var version = $(elem).attr("version");
+												var managerid = $(elem).attr("managerid");
+												var managername = $(elem).attr("managername");
 												
 												var b;
 												var a;
@@ -371,13 +374,15 @@ function signaturePopin( elem ) {
 													} else {
 														b = 0;
 													}
-													pifs4.push({courseid:course,scormid:scormid,begin:a,end:b});
+													pifs4.push({courseid:course,scormid:scormid,begin:a,end:b,managerid:managerid,managername:managername});
 													
 												  }
 												});
 												$('button#pif[user="'+userid+'"]').attr('pif',JSON.stringify(pifs4));
-												
-												MM.widgets.dialogClose();
+												$('button#creerpif[user="'+userid+'"]').attr('pif',JSON.stringify(pifs4));
+												$('button#modifierpif[user="'+userid+'"]').attr('pif',JSON.stringify(pifs4));
+
+												//MM.widgets.dialogClose();
 												
 												var popTitle ="";
 												if (type=="signature_stagiaire_avant"){
@@ -415,8 +420,9 @@ function signaturePopin( elem ) {
                                                 
 												
 												options.buttons[MM.lang.s("cancel")] = function() {
-                                                    MM.widgets.dialogClose();
-                                                    $('button#pif[user="'+userid+'"]').click();
+                                                    MM.widgets.dialogClose2();
+													//modifierPif(elem,userid,course,version);
+                                                    //$('button#pif[user="'+userid+'"]').click();
                                                 };
                                                 
                                                 
@@ -439,20 +445,30 @@ function signaturePopin( elem ) {
                                                     //var sigDec = Base64.decode(sig);
 													//var sigData = "data:image/png;base64,"+sig;
 													var fileSignature = "";
+													var pifSignature="";
 													if (type=="signature_stagiaire_avant"){
-														fileSignature = MM.config.current_site.id+"/"+course+"/"+userid+"_pif_stagiaire_avant.png";
+														fileSignature = MM.config.current_site.id+"/"+course+"/"+userid+"_signature_stagiaire_avant.png";
+														pifSignature="pifsignature2";
 													}
 													if (type=="signature_manager_avant"){
-														fileSignature = MM.config.current_site.id+"/"+course+"/"+userid+"_pif_manager_avant.png";
+														fileSignature = MM.config.current_site.id+"/"+course+"/"+userid+"_signature_manager_avant.png";
+														pifSignature="pifsignature1";
 													}
 													if (type=="signature_stagiaire_apres"){
-														fileSignature = MM.config.current_site.id+"/"+course+"/"+userid+"_pif_stagiaire_apres.png";
+														fileSignature = MM.config.current_site.id+"/"+course+"/"+userid+"_signature_stagiaire_apres.png";
+														pifSignature="pifsignature4";
 													}
 													if (type=="signature_manager_apres"){
-														fileSignature = MM.config.current_site.id+"/"+course+"/"+userid+"_pif_manager_apres.png";
+														fileSignature = MM.config.current_site.id+"/"+course+"/"+userid+"_signature_manager_apres.png";
+														pifSignature="pifsignature3";
 													}
                                                     
 													
+													//var fileSignature1 = MM.config.current_site.id+"/"+course+"/"+user+"_signature_manager_avant.png";
+													//var fileSignature2 = MM.config.current_site.id+"/"+course+"/"+user+"_signature_stagiaire_avant.png";
+													//var fileSignature3 = MM.config.current_site.id+"/"+course+"/"+user+"_signature_manager_apres.png";
+													//var fileSignature4 = MM.config.current_site.id+"/"+course+"/"+user+"_signature_stagiaire_apres.png";
+        
                                                     //create local result file
                                                     MM.fs.createFile(fileSignature,
                                                         function(fileEntry) {
@@ -475,13 +491,18 @@ function signaturePopin( elem ) {
 																					MM.fs.writeInFile(fileEntry2, content , 
 																						function(fileUrl2) {
 																							MM.log('Write filePifSignatures :'+fileUrl2+' OK');
-																							MM.widgets.dialogClose();
-																							$('button#pif[user="'+userid+'"]').click();
+																							MM.widgets.dialogClose2();
+																							$('#'+pifSignature).html('<input type="hidden" name="'+pifSignature+'" value="'+fileSignature+'"><img src="'+sig+'" width="300">')
+																							//modifierPif(elem,userid,course,version);
+																							//$('button#pif[user="'+userid+'"]').click();
 																						},
 																						function(fileUrl2) {
 																							MM.log('Write filePifSignatures :'+fileUrl2+' NOK');
-																							MM.widgets.dialogClose();
-																							$('button#pif[user="'+userid+'"]').click();
+																							MM.widgets.dialogClose2();
+																							//modifierPif(elem,userid,course,version);
+																							//$('#'+pifSignature).html('<input type="hidden" name="'+pifSignature+'" value="'+fileSignature+'"><img src="'+fileSignature+'" width="300">')
+																							
+																							//$('button#pif[user="'+userid+'"]').click();
 																						
 																						}
 																					);
@@ -489,8 +510,9 @@ function signaturePopin( elem ) {
 																					
 																				function(fileEntry2) {
 																				   MM.log('Create filePifSignatures : NOK');
-																				   MM.widgets.dialogClose();
-																					$('button#pif[user="'+userid+'"]').click();
+																				   MM.widgets.dialogClose2();
+																				   //modifierPif(elem,userid,course,version);
+																				   //$('button#pif[user="'+userid+'"]').click();
 																				}
 																			);
 																		},
@@ -506,13 +528,17 @@ function signaturePopin( elem ) {
 																					MM.fs.writeInFile(fileEntry2, content , 
 																						function(fileUrl2) {
 																							MM.log('Write filePifSignatures :'+fileUrl2+' OK');
-																							MM.widgets.dialogClose();
-																							$('button#pif[user="'+userid+'"]').click();
+																							MM.widgets.dialogClose2();
+																							$('#'+pifSignature).html('<input type="hidden" name="'+pifSignature+'" value="'+fileSignature+'"><img src="'+sig+'" width="300">')
+																							
+																							//modifierPif(elem,userid,course,version);
+																							//$('button#pif[user="'+userid+'"]').click();
 																						},
 																						function(fileUrl2) {
 																							MM.log('Write filePifSignatures :'+fileUrl2+' NOK');
-																							MM.widgets.dialogClose();
-																							$('button#pif[user="'+userid+'"]').click();
+																							MM.widgets.dialogClose2();
+																							//modifierPif(elem,userid,course,version);
+																							//$('button#pif[user="'+userid+'"]').click();
 																						
 																						}
 																					);
@@ -520,8 +546,9 @@ function signaturePopin( elem ) {
 																					
 																				function(fileEntry2) {
 																				   MM.log('Create filePifSignatures : NOK');
-																				   MM.widgets.dialogClose();
-																					$('button#pif[user="'+userid+'"]').click();
+																				   MM.widgets.dialogClose2();
+																				   //modifierPif(elem,userid,course,version);
+																				   //$('button#pif[user="'+userid+'"]').click();
 																				}
 																			);
                                                                         }
@@ -529,23 +556,251 @@ function signaturePopin( elem ) {
                                                                 },
                                                                 function(fileUrl) {
                                                                     MM.log(' Write Signature Pif NOK : ' + fileUrl);
-																	MM.widgets.dialogClose();
-																	$('button#pif[user="'+userid+'"]').click();
+																	MM.widgets.dialogClose2();
+																	//modifierPif(elem,userid,course,version);
+																	//$('button#pif[user="'+userid+'"]').click();
                                                                 }
                                                             );
                                                         },
                                                         function(fileEntry) {
                                                             MM.log(' Write Signature Pif NOK : ' + fileSignature);
-															MM.widgets.dialogClose();
-															$('button#pif[user="'+userid+'"]').click();
+															MM.widgets.dialogClose2();
+															//modifierPif(elem,userid,course,version);
+															//$('button#pif[user="'+userid+'"]').click();
                                                         }
                                                     );
                                                                 
                                                     
                                                 };
-												options.buttons["Valider"]['style'] = "modal-button-2";
+												options.buttons["Valider"]['style'] = "modal-button-10";
                                                 
-                                                MM.widgets.dialog(html, options);
+                                                MM.widgets.dialog2(html, options);
+                                                
+                                                
+                                                $(document).ready(function(e) {     
+                                                    var sigCapture = new SignatureCapture( "canvassignature" );
+                                                });
+                                                
+	}
+	
+	
+	function signatureAvenantPopin( elem ) {
+
+												
+                                                
+                                                var userid = $(elem).attr("userid");
+												var type = $(elem).attr("id");
+												var course = $(elem).attr("course");
+												var managerid = $(elem).attr("managerid");
+												var managername = $(elem).attr("managername");
+												var version = $(elem).attr("version");
+												
+												var b;
+												var a;
+												var scormid;
+												var pifs4 = new Array();
+												var pifArray;
+												$('input#checkboxpif').each(function(index) {
+												  if ($(this).attr('genre') == 'b') {
+													scormid = $(this).attr('content');
+													if ($(this).is(':checked')) {
+														a = 1;
+													} else {
+														a = 0;
+													}
+												  }
+												  if ($(this).attr('genre') == 'a') {
+													if ($(this).is(':checked')) {
+														b = 1;
+													} else {
+														b = 0;
+													}
+													pifs4.push({courseid:course,scormid:scormid,begin:a,end:b,managerid:managerid,managername:managername});
+													
+												  }
+												});
+												$('button#pif[user="'+userid+'"]').attr('pif',JSON.stringify(pifs4));
+												$('button#creerpif[user="'+userid+'"]').attr('pif',JSON.stringify(pifs4));
+											        $('button#modifierpif[user="'+userid+'"]').attr('pif',JSON.stringify(pifs4));	
+												//MM.widgets.dialogClose();
+												
+												var popTitle ="";
+												if (type=="signature_stagiaire"){
+                                                    popTitle = "Signature de l'avenant par le stagiaire";
+                                                }
+												if (type=="signature_manager"){
+                                                    popTitle = "Signature de l'avenant par le manager";
+                                                }
+												
+												
+                                                
+												//var sigCapture = new SignatureCapture( "canvassignature" );
+                                                
+                                                MM.log('AvenantSignature : ' + type + ',' + userid);
+                                                
+                                                var userP = MM.db.get('users', MM.config.current_site.id + "-" + userid);
+                                                var userG = userP.toJSON();
+                                                
+                                                var addNote = "Valider";
+                                                var html = '<div id="canvasContainer" style="background-color:#cccccc"><canvas id="canvassignature" name="canvassignature" height="200px" /></div><script>$(document).ready(function(e) { var sigCapture = new SignatureCapture( "canvassignature" ); });</script>';
+                        
+                                                var options = {
+                                                    title: popTitle,
+                                                    width: "90%",
+                                                    buttons: {}
+                                                };
+                                                
+                                                
+                                                
+                                                
+												
+												options.buttons[MM.lang.s("cancel")] = function() {
+                                                    MM.widgets.dialogClose2();
+													MM.log('Cancel Signature:'+elem+'/'+userid+'/'+course+'/'+version);
+													//modifierPif(elem,userid,course,version);
+                                                    //$('button#pif[user="'+userid+'"]').click();
+                                                };
+                                                
+                                                
+                                                
+                                                options.buttons["Effacer"] = function() {
+                                                    //var sig2 = $('#canvassignature').get(0).toDataURL("image/png");
+													var sig2 = new SignatureCapture( "canvassignature" );
+                                                    sig2.clear();
+													//sigCapture.clear();
+                                                };
+												
+												options.buttons["Effacer"]['style'] = "modal-button-3";
+												
+												options.buttons["Valider"] = function() {
+                                                    //var sigCapture2 = new SignatureCapture( "canvassignature" );
+													var sig = $('#canvassignature').get(0).toDataURL("image/png");
+													//var index = sig.indexOf( "," )+1;
+													//sig = sig.substring( index );
+													
+                                                    //var sigDec = Base64.decode(sig);
+													//var sigData = "data:image/png;base64,"+sig;
+													var fileSignature = "";
+													var avenantSignature = "";
+													if (type=="signature_stagiaire"){
+														fileSignature = MM.config.current_site.id+"/"+course+"/"+userid+"_"+version+"_signature_stagiaire.png";
+														avenantSignature = "avenantsignature2";
+													}
+													if (type=="signature_manager"){
+														fileSignature = MM.config.current_site.id+"/"+course+"/"+userid+"_"+version+"_signature_manager.png";
+														avenantSignature = "avenantsignature1";
+													}
+													
+                                                    
+													
+                                                    //create local result file
+                                                    MM.fs.createFile(fileSignature,
+                                                        function(fileEntry) {
+                                                            MM.fs.writeInFile(fileEntry, sig, 
+                                                                function(fileUrl) {
+                                                                    MM.log(' Write Signature Avenant OK : ' + fileUrl);
+																	
+																	var fileAvenantSignatures = MM.config.current_site.id+"/"+course+"/"+userid+"_avenantsignatures.json";
+																	
+																	MM.log('fileAvenantSignatures : ' + fileAvenantSignatures);
+																	
+																	MM.fs.findFileAndReadContents(fileAvenantSignatures,
+																		function (result) {
+                                                                            pifArray = JSON.parse(result);
+																			pifArray.push(fileSignature);
+																			var content = JSON.stringify(pifArray);
+																			MM.log('fileAvenantSignatures Exist:'+content);
+																			MM.fs.createFile(fileAvenantSignatures,
+																				function(fileEntry2) {
+																					MM.fs.writeInFile(fileEntry2, content , 
+																						function(fileUrl2) {
+																							MM.log('Write fileAvenantSignatures :'+fileUrl2+' OK');
+																							MM.widgets.dialogClose2();
+																							$('#'+avenantSignature).html('<input type="hidden" name="'+avenantSignature+'" value="'+fileSignature+'"><img src="'+sig+'" width="300">')
+																							
+																							//modifierPif(elem,userid,course,version);
+																							//$('button#pif[user="'+userid+'"]').click();
+																						},
+																						function(fileUrl2) {
+																							MM.log('Write fileAvenantSignatures :'+fileUrl2+' NOK');
+																							MM.widgets.dialogClose2();
+																							//modifierPif(elem,userid,course,version);
+																							//$('button#pif[user="'+userid+'"]').click();
+																						
+																						}
+																					);
+																				},   
+																					
+																				function(fileEntry2) {
+																				   MM.log('Create fileAvenantSignatures : NOK');
+																				   MM.widgets.dialogClose2();
+																				   //modifierPif(elem,userid,course,version);
+																				   //$('button#pif[user="'+userid+'"]').click();
+																				}
+																			);
+																		},
+																		function (result) {
+																			MM.log('fileAvenantSignatures Not Exist');
+                                                                            MM.fs.createFile(fileAvenantSignatures,
+																				function(fileEntry2) {
+																					pifArray = new Array();
+																					pifArray.push(fileSignature);
+																					var content = JSON.stringify(pifArray);
+																					MM.log('Create fileAvenantSignatures :'+fileEntry2+' OK/'+content);
+																					
+																					MM.fs.writeInFile(fileEntry2, content , 
+																						function(fileUrl2) {
+																							MM.log('Write fileAvenantSignatures :'+fileUrl2+' OK');
+																							MM.widgets.dialogClose2();
+																							$('#'+avenantSignature).html('<input type="hidden" name="'+avenantSignature+'" value="'+fileSignature+'"><img src="'+sig+'" width="300">')
+																							
+																							//modifierPif(elem,userid,course,version);
+																							//$('button#pif[user="'+userid+'"]').click();
+																						},
+																						function(fileUrl2) {
+																							MM.log('Write fileAvenantSignatures :'+fileUrl2+' NOK');
+																							MM.widgets.dialogClose2();
+																							//modifierPif(elem,userid,course,version);
+																							//$('button#pif[user="'+userid+'"]').click();
+																						
+																						}
+																					);
+																				},   
+																					
+																				function(fileEntry2) {
+																				   MM.log('Create fileAvenantSignatures : NOK');
+																				   MM.widgets.dialogClose2();
+																				   //modifierPif(elem,userid,course,version);
+																				   //$('button#pif[user="'+userid+'"]').click();
+																				}
+																			);
+                                                                        }
+																	);
+                                                                },
+                                                                function(fileUrl) {
+                                                                    MM.log(' Write Signature Avenant NOK : ' + fileUrl);
+																	MM.widgets.dialogClose2();
+																	//modifierPif(elem,userid,course,version);
+																	//$('button#pif[user="'+userid+'"]').click();
+                                                                }
+                                                            );
+                                                        },
+                                                        function(fileEntry) {
+                                                            MM.log(' Write Signature Avenant NOK : ' + fileSignature);
+															MM.widgets.dialogClose2();
+															//modifierPif(elem,userid,course,version);
+															
+															//$('button#pif[user="'+userid+'"]').click();
+                                                        }
+                                                    );
+                                                                
+                                                    
+                                                };
+												options.buttons["Valider"]['style'] = "modal-button-10";
+                                                
+												//$("#app-dialog").removeClass('full-screen-dialog2');
+												//$("#app-dialog .modalContent").css('height','100%');
+                                                MM.widgets.dialog2(html, options);
                                                 
                                                 
                                                 $(document).ready(function(e) {     

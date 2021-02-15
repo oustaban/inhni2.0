@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:;default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:;default-src * gap://ready; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
     <title></title>
     <meta name="viewport" content="width=device-width;initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/styles.css">
     <script language="javascript">
@@ -61,6 +63,7 @@
     <script src="lib/mm.sync.js"></script>
     <script src="lib/mm.emulator.js"></script>
     <script src="lib/mm.rdebugger.js"></script>
+    <script src="externallib/easytimer.min.js"></script>
     <script src="lib/mm.fs.js"></script>
     <script data-main="lib/app.js" src="externallib/require.js"></script>
     <script language="javascript">
@@ -70,7 +73,6 @@
             MM.log('Deviceready fired');
             screen.lockOrientation('landscape');
             MM.deviceReady = true;
-            
             //setTimeout(function() {
                 StatusBar.hide();
 				MM.log('Hide Bar');
@@ -165,6 +167,17 @@
 </div>
 
 <div id="app-dialog">
+    <div>
+        <div class="modalHeader">
+        </div>
+        <div class="modalContent">
+        </div>
+        <div class="modalFooter">
+        </div>
+        <div class="modalClear"></div>
+    </div>
+</div>
+<div id="app-dialog2">
     <div>
         <div class="modalHeader">
         </div>
@@ -283,9 +296,22 @@
                                 </a>
                             </li>
                             <% } %>
-                        <% } else { %>
+                        <% } if (plugin.name == 'contents') { %>
                         <li class="nav-item">
                                 <a href="<%= plugin.menuURL %><%= course.id %>/section/-1" class="touch-row">
+                                    <% if (plugin.icon) { %>
+                                        <div class="plugin-ico app-ico">
+                                            <img src="<%= plugin.icon %>" border="0">
+                                        </div>
+                                    <% } %>
+                                    <div class="plugin-name">
+                                        <%= MM.lang.pluginName(plugin.name) %>
+                                    </div>
+                                </a>
+                            </li>
+                        <% } if (plugin.name == 'report') { %>
+                        <li class="nav-item">
+                                <a href="<%= plugin.menuURL %><%= course.id %>" class="touch-row">
                                     <% if (plugin.icon) { %>
                                         <div class="plugin-ico app-ico">
                                             <img src="<%= plugin.icon %>" border="0">

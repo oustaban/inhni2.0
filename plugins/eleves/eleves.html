@@ -7,7 +7,7 @@
             <input type="hidden" name="listeParticipants" value="<% _.each(users, function(user) { %><%= user.id %>,<% }); %>">
             <div id="listeparticipants">
                 <ul id="listeparticipants1" class="nav nav-v">
-                    <%= MM.tpl.render(MM.plugins.eleves.templates.elevesRow.html, {"courseId": courseId, "users": users}) %>
+                    <%= MM.tpl.render(MM.plugins.eleves.templates.elevesRow.html, {"courseId": courseId, "users": users, "versions": versions}) %>
                 </ul>
             </div>
         </div>
@@ -25,6 +25,13 @@
     </div>
     <% } %>
     <div id="buttons">
+        <div id="showTimer">
+            <!--<span id="days">0</span><span> jours</span>-->
+            Temps passé : 
+            <span id="hours">0</span><span> h</span>
+            <span id="minutes">0</span><span> min</span>
+            <span id="seconds">0</span><span> s</span>
+        </div>
         <div class="centered2">
             <button id="showSessionL" course="<%= courseId %>" users="" path="" module="" class="btn grd-vert text-blanc">Démarrer la session</button>
         </div>
@@ -45,4 +52,8 @@
         <div class="centered2">
             <button id="synchroR" course="<%= courseId %>" users="<% _.each(users, function(user) { %><%= user.id %>,<% }); %>" names="<% _.each(users, function(user) { %><%= user.fullname %>,<% }); %>" class="btn grd-orange text-blanc" >Synchroniser les Résultats</button>
         </div>
+        <div class="centered2" style="padding-top:0px;margin-top:-10px">
+            <span id="createdPif"><strong>PIF non créé(s) parmi les participants sélectionnés.</strong><br/><i>Veuillez compléter la grille d'évaluation en amont de la formation :<br/>cliquez sur '<strong>Créer PIF</strong>' à côté du stagiaire concerné.</i></button>
+        </div>
+        
     </div>

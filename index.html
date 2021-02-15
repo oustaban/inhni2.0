@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width;initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
     <meta name="format-detection" content="date=no">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="integration/build/assets/css/main.css">
     <script language="javascript">
 
         // We use this code for handling unexpected errors.
@@ -129,7 +128,7 @@
 
     <style id="mobilecssurl"></style>
 </head>
-<body>
+<body class="connex">
 
 <div id="add-site" style="display: none">
 
@@ -392,6 +391,61 @@
 </script>
 
 <script type="text/template" id="add-site_template">
+
+    <div class="wrapper">
+        <header class="header">
+            <h1 class="logo">inhnov</h1>
+        </header>
+
+        <main class="main">
+        
+            <img class="avatar" src="integration/build/assets/images/ico-avatar.svg" width="60" height="60">
+
+            <p class="text-helper">Saisissez vos codes de connexion</p>
+
+            <form action="" novalidate class="form connexion">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="form-field">
+                                <input type="url" class="form-control is-invalid" id="url" autocapitalize="off" autocorrect="off" placeholder="<%= MM.lang.s("siteurl") %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="form-field">
+                                <input id="connexField2" class="form-control" type="email" name="email" value="" placeholder="Email" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="form-field">
+                                <input id="connexField3" class="form-control" type="password" name="password" value="" placeholder="Mot de passe" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="form-field">
+                                <button class="btn btn--connexion" type="submit">Connexion</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="invalid-text">Adresse URL incorrecte</p>
+        
+            </form>
+
+            <a class="connex-link" href="#">Problème de connexion ?</a>
+        </main>
+
+    </div>
+</script>
+
+<script type="text/template" id="add-site-old_template">
 <h1 class="app-ico">
     <img src="img/login-logo.png" alt="Moodle">
 </h1>

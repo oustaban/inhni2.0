@@ -70,15 +70,11 @@
         // http://rickluna.com/wp/2012/04/solving-the-connection-to-the-server-was-unsuccessful-error-in-androidphonegap/
         $(document).bind('deviceready', function() {
             MM.log('Deviceready fired');
-            screen.lockOrientation('landscape');
+            //screen.lockOrientation('landscape');
             MM.deviceReady = true;
-            //setTimeout(function() {
-                StatusBar.hide();
-				MM.log('Hide Bar');
-            //}, 5000);
-			//StatusBar.overlaysWebView(true);
-            //screen.unlockOrientation();
-            // Store the device locale for further uses.
+            StatusBar.hide();
+			MM.log('Hide Bar');
+            
             navigator.globalization.getLocaleName(
                 function (locale) {
                     MM.lang.locale = locale.value;
@@ -86,6 +82,7 @@
                 },
                 function () {}
             );
+
             // Disable the back button, exists the app.
             document.addEventListener("backbutton", function() {
                 MM.panels.goBack();
@@ -429,7 +426,7 @@
                     <div class="row">
                         <div class="col-auto">
                             <div class="form-field">
-                                <input class="btn btn--connexion" type="submit" name="add" id="addsitebutton" value="<%= MM.lang.s("connection") %>">
+                                <button class="btn btn--connexion" type="submit" name="add" id="addsitebutton"><%= MM.lang.s("connection") %></button>
                             </div>
                         </div>
                     </div>

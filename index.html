@@ -74,6 +74,7 @@
             MM.deviceReady = true;
             StatusBar.hide();
 			MM.log('Hide Bar');
+            Keyboard.hideFormAccessoryBar(false);
             
             navigator.globalization.getLocaleName(
                 function (locale) {

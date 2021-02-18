@@ -70,7 +70,7 @@
         // http://rickluna.com/wp/2012/04/solving-the-connection-to-the-server-was-unsuccessful-error-in-androidphonegap/
         $(document).bind('deviceready', function() {
             MM.log('Deviceready fired');
-            //screen.lockOrientation('landscape');
+            screen.lockOrientation('portrait');
             MM.deviceReady = true;
             StatusBar.hide();
 			MM.log('Hide Bar');

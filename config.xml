@@ -23,6 +23,8 @@
     <preference name="webviewbounce"    value="false" />
     <preference name="prerendered-icon" value="true" />
     <preference name="load-url-timeout" value="60000" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
+    <preference name="orientation" value="portrait" />
 
     <preference name="AndroidPersistentFileLocation" value="Internal" />
     <preference name="iosPersistentFileLocation" value="Compatibility" />  

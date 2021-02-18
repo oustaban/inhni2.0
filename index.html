@@ -141,22 +141,39 @@
 
 <div id="main-wrapper" style="display: none; background-color: white">
 
-    <div class="header-wrapper">
-        <header class="header-main">
-            <nav class="nav-main">
-                <ul class="nav">
-                    <li class="nav-item home menu-home">
-                        <a href="#" class="ir"  id="mainmenu">
-                            Home
-                        </a>
-                    </li>
-                </ul>
-                <h1 id="page-title"></h1>
-            </nav>
-        </header>
-        <div id="header-icon-left"></div>
-        <div id="header-icon-right"></div>
-    </div>
+    <header class="header">
+        <nav>
+            <a class="menu-link" href="#">menu</a>
+            <h1 class="logo"><a href="#">inhnov</a></h1>
+            <a class="synchro" href="#refresh">synchronisation</a>
+        </nav>
+        <div class="underNav">
+            <a class="back-link" href="#">Retour</a>
+            <p class="parcours-title"><a href="#">LIBERO 3.0</a></p>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="bienvenue">
+            <article class="bienvenue__intro">
+                <p>Bienvenue</p>
+                <p>Sélectionnez un parcours de formation :</p>
+            </article>
+
+            <ul class="bienvenue__list">
+                <li class="bienvenue__item">
+                    <a href="#">
+                        <img src="assets/images/logo-libero.png">
+                    </a>
+                </li>
+                <li class="bienvenue__item">
+                    <a href="#">
+                        <img src="assets/images/logo-libero.png">
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </main>
 
     <div id="panel-left" class="panel user-menu"></div>
 
@@ -190,175 +207,37 @@
 </div>
 
 <script type="text/template" id="menu_template">
-<header>
-    <div class="media">
-        <div class="refresh app-ico">
-            <a href="#refresh">
-                <img width="16" height="16" src="img/reload.png" border="0">
-            </a>
+    <header class="header">
+        <nav>
+            <a class="menu-link" href="#">menu</a>
+            <h1 class="logo"><a href="#">inhnov</a></h1>
+            <a class="synchro" href="#refresh">synchronisation</a>
+        </nav>
+        <div class="underNav">
+            <a class="back-link" href="#"><%= user.fullname %></a>
+            <p class="parcours-title"><a href="#logout"><%= MM.lang.s("logout") %></a></p>
         </div>
-        <!--
-        <div class="img">
-            <img src="<%= MM.util.getMoodleFilePath(user.profileimageurl) %>" border="0">
-        </div>
-        -->
-        <div class="bd">
-            <h1><%= user.fullname %></h1>
-        </div>
-    </div>
-</header>
+    </header>
 
-<ul class="nav nav-v js-accordion">
-    <% _.each(plugins, function(plugin) { %>
-        <% if (typeof plugin.subMenus == "undefined" || plugin.subMenus.length == 0) { %>
-            <li class="nav-item no-submenu">
-                <a href="<%= plugin.menuURL %>" class="alink touch-row">
-                    <% if (plugin.icon) { %>
-                        <div class="plugin-ico app-ico">
-                            <img src="<%= plugin.icon %>" border="0">
-                        </div>
-                    <% } %>
-                    <div class="plugin-name">
-                        <%= MM.lang.pluginName(plugin.name) %>
-                    </div>
-                </a>
-            </li>
-        <% } else { %>
-            <li class="nav-item">
-                <% if (plugin.toogler) { %>
-                    <a class="toogler expand touch-row">
-                <% } else { %>
-                    <a>
-                <% }  %>
-                    <% if (plugin.icon) { %>
-                        <div class="plugin-ico app-ico">
-                            <img src="<%= plugin.icon %>" border="0">
-                        </div>
-                    <% } %>
-                    <div class="plugin-name">
-                        <%= MM.lang.pluginName(plugin.name) %>
-                    </div>
-                </a>
-                <% if (plugin.toogler) { %>
-                    <ul class="nav submenu">
-                <% } else { %>
-                    <ul class="nav">
-                <% }  %>
-                    <% _.each(plugin.subMenus, function(menu) { %>
-                        <li class="nav-item">
-                            <a href="<%= menu.menuURL %>" class="alink touch-row">
-                                <% if (menu.icon) { %>
-                                    <div class="plugin-ico app-ico">
-                                        <img src="<%= menu.icon %>" border="0">
-                                    </div>
-                                <% } %>
-                                <div class="plugin-name">
-                                    <%= MM.lang.s(menu.name) %>
-                                </div>
-                            </a>
-                        </li>
-                    <% }); %>
-                </ul>
-            </li>
-        <% } %>
-    <% }); %>
-    <li class="nav-item">
-        <a class="toogler expand touch-row section-header">
-            <div class="plugin-ico app-ico">
-                <img src="img/ico-course.png" border="0">
-            </div>
-            <div class="plugin-name">
-                <%= MM.lang.s("mycourses") %>
-            </div>
-        </a>
-        <ul class="nav submenu">
-            <% _.each(courses, function(course) { %>
-            <li class="nav-item">
-                <a href="#" class="toogler expand touch-row">
-                    <div class="plugin-name">
+    <main class="main">
+        <section class="bienvenue">
+            <article class="bienvenue__intro">
+                <p>Bienvenue</p>
+                <p>Sélectionnez un parcours de formation :</p>
+            </article>
+
+            <ul class="bienvenue__list">
+                <% _.each(courses, function(course) { %>
+                <li class="bienvenue__item">
+                    <a href="#">
+                        <img src="assets/images/logo-libero.png">
                         <%= course.fullname %>
-                    </div>
-                </a>
-                <ul class="nav submenu">
-                    <% _.each(coursePlugins, function(plugin) { %>
-                        <% if (plugin.name == 'eleves') { %>
-                            <% if (course.managertype == 2 || course.managertype==3) { %>
-                            <li class="nav-item">
-                                <a href="<%= plugin.menuURL %><%= course.id %>" class="touch-row">
-                                    <% if (plugin.icon) { %>
-                                        <div class="plugin-ico app-ico">
-                                            <img src="<%= plugin.icon %>" border="0">
-                                        </div>
-                                    <% } %>
-                                    <div class="plugin-name">
-                                        <b><%= MM.lang.pluginName(plugin.name) %></b>
-                                    </div>
-                                </a>
-                            </li>
-                            <% } %>
-                        <% } if (plugin.name == 'contents') { %>
-                        <li class="nav-item">
-                                <a href="<%= plugin.menuURL %><%= course.id %>/section/-1" class="touch-row">
-                                    <% if (plugin.icon) { %>
-                                        <div class="plugin-ico app-ico">
-                                            <img src="<%= plugin.icon %>" border="0">
-                                        </div>
-                                    <% } %>
-                                    <div class="plugin-name">
-                                        <%= MM.lang.pluginName(plugin.name) %>
-                                    </div>
-                                </a>
-                            </li>
-                        <% } if (plugin.name == 'report') { %>
-                        <li class="nav-item">
-                                <a href="<%= plugin.menuURL %><%= course.id %>" class="touch-row">
-                                    <% if (plugin.icon) { %>
-                                        <div class="plugin-ico app-ico">
-                                            <img src="<%= plugin.icon %>" border="0">
-                                        </div>
-                                    <% } %>
-                                    <div class="plugin-name">
-                                        <%= MM.lang.pluginName(plugin.name) %>
-                                    </div>
-                                </a>
-                            </li>
-                        <% } %>
-                    <% }); %>
-                </ul>
-            </li>
-            <% }); %>
-        </ul>
-    </li>
-</ul>
-
-<ul id="general-menu" class="nav nav-v js-accordion">
-    <!--
-    <li class="nav-item no-arrow">
-        <a href="<%= siteurl%>" target="_blank" class="touch-row">
-            <span class="plugin-ico app-ico"><img src="img/ico-network.png" border="0"></span>
-            <%= MM.lang.s("website") %>
-        </a>
-    </li>
-    <li class="nav-item no-arrow">
-        <a href="<%= docsurl %>" target="_blank" class="touch-row">
-            <span class="plugin-ico app-ico"><img src="img/ico-help.png" border="0"></span>
-            <%= MM.lang.s("help") %>
-        </a>
-    </li>
-	<li class="nav-item no-submenu">
-        <a href="#settings" class="touch-row">
-            <span class="plugin-ico app-ico"><img src="img/ico-settings.png" border="0"></span>
-            <%= MM.lang.s("settings") %>
-        </a>
-    </li>
-    -->
-    <li class="nav-item no-submenu">
-        <a href="#logout" class="touch-row">
-            <span class="plugin-ico app-ico"><img src="img/logout.png" border="0"></span>
-            <%= MM.lang.s("logout") %>
-        </a>
-    </li>
-</ul>
+                    </a>
+                </li>
+                <% }); %>
+            </ul>
+        </section>
+    </main>
 </script>
 
 <script type="text/template" id="settings_template">

@@ -503,7 +503,16 @@
         </array>
     </gap:config-file>
     
-    
+    <platform name="ios">
+        <config-file platform="ios" target="*-Info.plist" parent="CFBundleLocalizations" mode="replace">
+            <array>
+                <string>es</string>
+                <string>en</string>
+                <string>fr</string>
+                <string>it</string>
+            </array>
+        </config-file>
+    </platform>
 
     <access origin="*" subdomains="true" />
 

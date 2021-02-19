@@ -139,6 +139,10 @@
 
 </div>
 
+<div id="forgot-password" style="display: none">
+
+</div>
+
 <div id="main-wrapper" style="display: none">
 
 </div>
@@ -167,6 +171,7 @@
 </div>
 
 <script type="text/template" id="menu_template">
+    
     <header class="header">
         <nav>
             <a class="menu-link" href="#">menu</a>
@@ -178,8 +183,6 @@
             <p class="parcours-title"><a href="#logout"><%= MM.lang.s("logout") %></a></p>
         </div>
     </header>
-
-
     <main class="main">
         <section class="bienvenue">
             <article class="bienvenue__intro">
@@ -199,9 +202,11 @@
             </ul>
         </section>
     </main>
+
 </script>
 
 <script type="text/template" id="settings_template">
+    
     <div class="settings-list">
         <ul class="nav nav-v">
             <li class="nav-item">
@@ -229,6 +234,7 @@
             <% }); %>
         </ul>
     </div>
+
 </script>
 
 <script type="text/template" id="add-site_template">
@@ -280,85 +286,134 @@
         
             </form>
 
-            <a class="connex-link" href="#">Problème de connexion ?</a>
+            <a class="connex-link" href="#forgot-password">Problème de connexion ?</a>
         </main>
 
     </div>
+
 </script>
 
 <script type="text/template" id="add-site-old_template">
-<h1 class="app-ico">
-    <img src="img/login-logo.png" alt="Moodle">
-</h1>
-<form action="" novalidate>
-    <div id="login-details">
-        <p>
-            <input type="url" id="url" autocapitalize="off" autocorrect="off" placeholder="<%= MM.lang.s("siteurl") %>">
-        </p>
-        <div id="login-credentials">
+
+    <h1 class="app-ico">
+        <img src="img/login-logo.png" alt="Moodle">
+    </h1>
+    <form action="" novalidate>
+        <div id="login-details">
             <p>
-                <input type="text" id="username" autocapitalize="off" autocorrect="off" placeholder="<%= MM.lang.s("username") %>">
+                <input type="url" id="url" autocapitalize="off" autocorrect="off" placeholder="<%= MM.lang.s("siteurl") %>">
             </p>
+            <div id="login-credentials">
+                <p>
+                    <input type="text" id="username" autocapitalize="off" autocorrect="off" placeholder="<%= MM.lang.s("username") %>">
+                </p>
+                <p>
+                    <input type="password" id="password" placeholder="<%= MM.lang.s("password") %>">
+                </p>
+            </div>
             <p>
-                <input type="password" id="password" placeholder="<%= MM.lang.s("password") %>">
+                <input type="submit" name="add"   id="addsitebutton"   value="<%= MM.lang.s("add") %>">
+                <input type="button" name="reset" id="resetsitebutton" value="<%= MM.lang.s("reset") %>">
             </p>
         </div>
-        <p>
-            <input type="submit" name="add"   id="addsitebutton"   value="<%= MM.lang.s("add") %>">
-            <input type="button" name="reset" id="resetsitebutton" value="<%= MM.lang.s("reset") %>">
-        </p>
+    </form>
+    <div id= "helplogin">
+        <a href="#helpmelogin"><%= MM.lang.s("icantlogin") %></a>
+        <a href="#manage-accounts"><%= MM.lang.s("manageaccounts") %></a>
     </div>
-</form>
-<div id= "helplogin">
-    <a href="#helpmelogin"><%= MM.lang.s("icantlogin") %></a>
-    <a href="#manage-accounts"><%= MM.lang.s("manageaccounts") %></a>
-</div>
+
 </script>
 
 <script type="text/template" id="manage-accounts_template">
-<h1 class="app-ico">
-    <img src="img/login-logo.png" alt="Moodle">
-</h1>
-<% _.each(sites, function(site) { %>
-    <div class="accounts">
-        <a class="account-details" onclick="MM.loadSite('<%= site.id %>')">
-            <img src="<%= MM.util.getMoodleFilePath(site.userpictureurl, 1, site.id) %>">
-            <div>
-                <span class="account-fullname"><%= MM.util.formatText(site.fullname) %></span>
-                <span class="account-sitename"><%= MM.util.formatText(site.sitename) %></span>
-                <span class="account-siteurl"><%= site.siteurl %></span>
-            </div>
-        </a>
-        <span class="delete-site" >
-            <a class="btn" onclick="MM.settings.deleteSite('<%= site.id %>')"><%= MM.lang.s("deletesiteb") %></a>
-        </span>
-      </div>
-<% });%>
-<div class="add-site">
-    <a class="btn" href="#add-site"><%= MM.lang.s("add") %></a>
-</div>
+
+    <h1 class="app-ico">
+        <img src="img/login-logo.png" alt="Moodle">
+    </h1>
+    <% _.each(sites, function(site) { %>
+        <div class="accounts">
+            <a class="account-details" onclick="MM.loadSite('<%= site.id %>')">
+                <img src="<%= MM.util.getMoodleFilePath(site.userpictureurl, 1, site.id) %>">
+                <div>
+                    <span class="account-fullname"><%= MM.util.formatText(site.fullname) %></span>
+                    <span class="account-sitename"><%= MM.util.formatText(site.sitename) %></span>
+                    <span class="account-siteurl"><%= site.siteurl %></span>
+                </div>
+            </a>
+            <span class="delete-site" >
+                <a class="btn" onclick="MM.settings.deleteSite('<%= site.id %>')"><%= MM.lang.s("deletesiteb") %></a>
+            </span>
+        </div>
+    <% });%>
+    <div class="add-site">
+        <a class="btn" href="#add-site"><%= MM.lang.s("add") %></a>
+    </div>
+
 </script>
 
 <script type="text/template" id="choose-account-upload_template">
-<h1 class="app-ico">
-    <img src="img/login-logo.png" alt="Moodle">
-</h1>
-<h2><%= MM.lang.s('chooseaccountuploadfile') %></h2>
-<% _.each(sites, function(site) { %>
-    <div class="accounts">
-        <a class="account-details" data-siteid="<%= site.id %>" >
-            <img src="<%= MM.util.getMoodleFilePath(site.userpictureurl, 1, site.id) %>">
-            <div>
-                <span class="account-fullname"><%= MM.util.formatText(site.fullname) %></span>
-                <span class="account-sitename"><%= MM.util.formatText(site.sitename) %></span>
-                <span class="account-siteurl"><%= site.siteurl %></span>
-            </div>
-        </a>
+
+    <h1 class="app-ico">
+        <img src="img/login-logo.png" alt="Moodle">
+    </h1>
+    <h2><%= MM.lang.s('chooseaccountuploadfile') %></h2>
+    <% _.each(sites, function(site) { %>
+        <div class="accounts">
+            <a class="account-details" data-siteid="<%= site.id %>" >
+                <img src="<%= MM.util.getMoodleFilePath(site.userpictureurl, 1, site.id) %>">
+                <div>
+                    <span class="account-fullname"><%= MM.util.formatText(site.fullname) %></span>
+                    <span class="account-sitename"><%= MM.util.formatText(site.sitename) %></span>
+                    <span class="account-siteurl"><%= site.siteurl %></span>
+                </div>
+            </a>
+        </div>
+    <% });%>
+    <div >
+        <a id="btn-cancel-upload" class="btn"><%= MM.lang.s("cancel") %></a>
     </div>
-<% });%>
-<div >
-    <a id="btn-cancel-upload" class="btn"><%= MM.lang.s("cancel") %></a>
-</div>
+
+</script>
+
+<script type="text/template" id="forgot-password_template">
+
+    <div class="wrapper">
+        <header class="header">
+            <h1 class="logo">inhnov</h1>
+        </header>
+
+        <main class="main">
+        
+            <img class="avatar" src="assets/images/ico-avatar.svg" width="60" height="60">
+
+            <p class="text-helper">Saisissez votre adresse email<br/>pour récupérer votre mot de passe</p>
+
+            <form action="" novalidate class="form connexion">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="form-field">
+                                <input type="email" class="form-control" id="email" autocapitalize="off" autocorrect="off" placeholder="Email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="form-field">
+                                <button class="btn btn--connexion" type="submit" name="send" id="forgotpasswordbutton">Envoyer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="invalid-text">Adresse URL incorrecte</p>
+        
+            </form>
+
+            <a class="connex-link" href="#logout">Revenir à la page de connexion</a>
+        </main>
+
+    </div>
+
 </script>
 
 </body>

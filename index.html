@@ -179,6 +179,7 @@
         </div>
     </header>
 
+
     <main class="main">
         <section class="bienvenue">
             <article class="bienvenue__intro">
@@ -190,8 +191,8 @@
                 <% _.each(courses, function(course) { %>
                 <li class="bienvenue__item">
                     <a href="#">
-                        <img src="assets/images/logo-libero.png">
-                        <%= course.fullname %>
+                        <span class="title"><%= course.fullname %></span>
+                        <span class="subtitle"></span>
                     </a>
                 </li>
                 <% }); %>

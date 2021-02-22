@@ -330,29 +330,36 @@
 
 <script type="text/template" id="manage-accounts_template">
 
-    <h1 class="app-ico">
-        <img src="img/login-logo.png" alt="Moodle">
-    </h1>
-    <% _.each(sites, function(site) { %>
-        <div class="accounts">
-            <a class="account-details" onclick="MM.loadSite('<%= site.id %>')">
-                <img src="<%= MM.util.getMoodleFilePath(site.userpictureurl, 1, site.id) %>">
-                <div>
-                    <span class="account-fullname"><%= MM.util.formatText(site.fullname) %></span>
-                    <span class="account-sitename"><%= MM.util.formatText(site.sitename) %></span>
-                    <span class="account-siteurl"><%= site.siteurl %></span>
-                </div>
-            </a>
-            <span class="delete-site" >
-                <a class="btn" onclick="MM.settings.deleteSite('<%= site.id %>')"><%= MM.lang.s("deletesiteb") %></a>
-            </span>
-        </div>
-    <% });%>
-    <div class="add-site">
-        <a class="btn" href="#add-site"><%= MM.lang.s("add") %></a>
+    <div class="wrapper">
+        <header class="header">
+            <h1 class="logo">inhnov</h1>
+        </header>
+
+        <main class="main">
+            <img class="avatar" src="assets/images/ico-avatar.svg" width="60" height="60">
+            <p class="text-helper">Ajouter ou selectionner un compte</p>
+
+            <ul class="list-account">
+                <% _.each(sites, function(site) { %>
+                <li class="list-account__entry">
+                    <a class="account-details" onclick="MM.loadSite('<%= site.id %>')">
+                        <div class="field-like">
+                            <p class="first">Jean DUPONT</p>
+                            <p class="second"><%= site.siteurl %></p>
+                        </div>
+                    </a>
+                    <a class="btnDel" onclick="MM.settings.deleteSite('<%= site.id %>')">Supprimer</a>
+                </li>
+                <% });%>
+            </ul>
+            <a class="btn btn--connexion" href="#add-site">Ajouter</a>
+        </main>
+
     </div>
 
 </script>
+
+
 
 <script type="text/template" id="choose-account-upload_template">
 

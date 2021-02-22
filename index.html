@@ -291,6 +291,9 @@
             </form>
 
             <a class="connex-link" href="#forgot-password">Problème de connexion ?</a>
+            <% if (sites.length > 0) { %>
+            <a class="connex-link" href="#manage-accounts"><%= MM.lang.s("manageaccounts") %></a>
+            <% } %>
         </main>
 
     </div>
@@ -344,10 +347,11 @@
                 <li class="list-account__entry">
                     <a class="account-details" onclick="MM.loadSite('<%= site.id %>')">
                         <div class="field-like">
-                            <p class="first">Jean DUPONT</p>
+                            <p class="first"><%= site.fullname %></p>
                             <p class="second"><%= site.siteurl %></p>
                         </div>
                     </a>
+                    <button class="btnDel" type="button" onclick="MM.settings.deleteSite('<%= site.id %>')">Supprimer</button>
                     <a class="btnDel" onclick="MM.settings.deleteSite('<%= site.id %>')">Supprimer</a>
                 </li>
                 <% });%>

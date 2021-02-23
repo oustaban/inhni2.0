@@ -291,12 +291,8 @@
             </form>
 
             <a class="connex-link" href="#forgot-password">Problème de connexion ?</a>
-            <a class="connex-link" href="#manage-accounts"><%= MM.lang.s("manageaccounts") %></a>
-            <% if (sites) { %>
-                <% if (sites.length > 0) { %>
-                    <a class="connex-link" href="#manage-accounts"><%= MM.lang.s("manageaccounts") %></a>
-                <% } %>
-            <% } %>
+            <a class="connex-link" id="manage-accounts-link" href="#manage-accounts"><%= MM.lang.s("manageaccounts") %></a>
+            
         </main>
 
     </div>

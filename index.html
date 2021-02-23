@@ -197,7 +197,7 @@
             <ul class="bienvenue__list">
                 <% _.each(courses, function(course) { %>
                 <li class="bienvenue__item">
-                    <a href="#">
+                    <a href="#menu-course/<%= course.id %>">
                         <span class="title"><%= course.fullname %></span>
                         <span class="subtitle"></span>
                     </a>
@@ -435,6 +435,39 @@
         </main>
 
     </div>
+
+</script>
+
+
+<script type="text/template" id="menu-course_template">
+
+    <header class="header">
+        <nav>
+            <a class="menu-link" href="javascript:void(0)">menu</a>
+            <div class="menu-content">
+                <p><%= user.fullname %></p>
+                <a href="#logout">Déconnexion</a>
+            </div>
+            <h1 class="logo"><a href="#">inhnov</a></h1>
+            <a class="synchro" href="#refresh">synchronisation</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <ul class="menu__listing">
+            <li class="menu__item item--dwl">
+                <a href="#course/contents/<%= course.id %>/section/-1">Télécharger les modules pour un visionnage hors-ligne</a>
+            </li>
+            <% if (course.managertype == 2 || course.managertype==3) { %>
+            <li class="menu__item item--select">
+                <a href="#eleves/<%= course.id %>">Sélectionner des participants pour démarrer une session</a>
+            </li>
+            <% } %>
+            <li class="menu__item item--consult">
+                <a href="#report/<%= course.id %>">Consulter le rapport pour suivre la progression dans le parcours</a>
+            </li>
+        </ul>
+    </main>
 
 </script>
 

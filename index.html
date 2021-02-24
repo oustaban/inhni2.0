@@ -197,7 +197,7 @@
             <ul class="bienvenue__list">
                 <% _.each(courses, function(course) { %>
                 <li class="bienvenue__item">
-                    <a href="#menu-course/<%= course.id %>">
+                    <a href="javascript:void(0)" onclick="MM._displayMenuCourse('<%= course %>')">
                         <span class="title"><%= course.fullname %></span>
                         <span class="subtitle"></span>
                     </a>
@@ -460,15 +460,15 @@
     <main class="main">
         <ul class="menu__listing">
             <li class="menu__item item--dwl">
-                <a href="#course/contents/<%= courseId %>/section/-1">Télécharger les modules pour un visionnage hors-ligne</a>
+                <a href="#course/contents/<%= course.id %>/section/-1">Télécharger les modules pour un visionnage hors-ligne</a>
             </li>
             <% if (course.managertype == 2 || course.managertype==3) { %>
             <li class="menu__item item--select">
-                <a href="#eleves/<%= courseId %>">Sélectionner des participants pour démarrer une session</a>
+                <a href="#eleves/<%= course.id %>">Sélectionner des participants pour démarrer une session</a>
             </li>
             <% } %>
             <li class="menu__item item--consult">
-                <a href="#report/<%= courseId %>">Consulter le rapport pour suivre la progression dans le parcours</a>
+                <a href="#report/<%= course.id %>">Consulter le rapport pour suivre la progression dans le parcours</a>
             </li>
         </ul>
     </main>

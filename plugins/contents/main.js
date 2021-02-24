@@ -1338,7 +1338,8 @@ function renderDownload(finalContents,sectionId,sectionName,courseId,course) {
     }
 
     var html = MM.tpl.render(MM.plugins.contents.templates.contents.html, tpl);
-    MM.panels.show('right', html, {title: pageTitle});
+    //MM.panels.show('right', html, {title: pageTitle});
+    $('#main-wrapper').html(output);
     
     // Show info content modal window.
     $(".content-info", "#panel-right").on(MM.quickClick, function(e) {

@@ -197,7 +197,7 @@
             <ul class="bienvenue__list">
                 <% _.each(courses, function(course) { %>
                 <li class="bienvenue__item">
-                    <a href="javascript:void(0)" onclick="MM._displayMenuCourse('<%= course %>')">
+                    <a href="javascript:void(0)" onclick="MM._displayMenuCourse(<%= course %>)">
                         <span class="title"><%= course.fullname %></span>
                         <span class="subtitle"><%= course.managertype %></span>
                     </a>
